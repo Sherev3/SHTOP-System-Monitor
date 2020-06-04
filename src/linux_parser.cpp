@@ -105,17 +105,38 @@ int LinuxParser::TotalProcesses()
         if(processName == "processes")
         {
           processNumberInt = std::stoi(processNumber);
+          break;
         }
         
       }
-
   }
 
   return processNumberInt; 
 }
 
 // TODO: Read and return the number of running processes
-int LinuxParser::RunningProcesses() { return 0; }
+int LinuxParser::RunningProcesses() 
+{ 
+  std::ifstream filestream(kProcDirectory + kStatFilename);
+  string processRunningName,procsRunningNumber;
+  string line;
+  int procsRunningNumberInt;
+
+  if (filestream.is_open())
+  {
+    while (std::getline(filestream, line))
+    {
+      std::istringstream linestream(line);
+      linestream >> processRunningName >> procsRunningNumber;
+      if(processRunningName == "procs_running")
+      {
+        procsRunningNumberInt = std::stoi(procsRunningNumber);
+        break;
+      }
+    }
+  }
+  return procsRunningNumberInt; 
+}
 
 // TODO: Read and return the command associated with a process
 // REMOVE: [[maybe_unused]] once you define the function
@@ -135,4 +156,9 @@ string LinuxParser::User(int pid[[maybe_unused]]) { return string(); }
 
 // TODO: Read and return the uptime of a process
 // REMOVE: [[maybe_unused]] once you define the function
-long LinuxParser::UpTime(int pid[[maybe_unused]]) { return 0; }
+long LinuxParser::UpTime(int pid[[maybe_unused]]) 
+{
+  
+  
+  return 0; 
+}

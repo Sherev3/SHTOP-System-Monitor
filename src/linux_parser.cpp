@@ -44,6 +44,11 @@ string LinuxParser::Kernel() {
     std::istringstream linestream(line);
     linestream >> os >> version >> kernel;
   }
+  else
+  {
+    return string();
+  }
+  
   return kernel;
 }
 
@@ -71,7 +76,28 @@ vector<int> LinuxParser::Pids() {
 float LinuxParser::MemoryUtilization() { return 0.0; }
 
 // TODO: Read and return the system uptime
-long LinuxParser::UpTime() { return 0; }
+long LinuxParser::UpTime() 
+{ 
+  std::ifstream filestream(kProcDirectory + kUptimeFilename);  
+  string line;
+  string upTime,dummy;
+  long upTimelong;
+
+  if (filestream.is_open())
+  {
+    std::getline(filestream, line);
+    std::istringstream linestream(line);
+    linestream >> upTime;
+    upTimelong = std::stol(upTime);
+    //std::cout << upTimelong << "\n";
+  }
+  else
+  {
+    return 0;
+  }
+  
+  return upTimelong; 
+} 
 
 // TODO: Read and return the number of jiffies for the system
 long LinuxParser::Jiffies() { return 0; }
@@ -107,7 +133,7 @@ int LinuxParser::TotalProcesses()
           processNumberInt = std::stoi(processNumber);
           break;
         }
-        
+
       }
   }
 
@@ -156,9 +182,9 @@ string LinuxParser::User(int pid[[maybe_unused]]) { return string(); }
 
 // TODO: Read and return the uptime of a process
 // REMOVE: [[maybe_unused]] once you define the function
-long LinuxParser::UpTime(int pid[[maybe_unused]]) 
-{
+// long LinuxParser::UpTime(int pid[[maybe_unused]]) 
+// {
   
   
-  return 0; 
-}
+//   return 0; 
+// }

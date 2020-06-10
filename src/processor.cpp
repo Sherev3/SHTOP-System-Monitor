@@ -38,8 +38,6 @@ float Processor::Utilization()
         //CPU_Percentage = (totald - idled)/totald 
         cpuPercentage = (totald_ - idled_)/totald_;
 
-    //	linestream >> cpu >> user_ >> nice_ >> system_ >> idle_ >> ioWait_\
-    //	>> irq_ >> softIrq_ >> steal_ >> guest_ >> guestNice_;
         prevUser_ = user_;
         prevNice_ = nice_;
         prevSystem_ = system_;
@@ -52,7 +50,6 @@ float Processor::Utilization()
         prevGuestNice_ = guestNice_;
         prevIdle_ = idle_;
         prevNonIdle_ = nonIdle_;
-        //cout << cpuPercentage << "\n";
     }
     else
     {

@@ -16,22 +16,34 @@ using std::vector;
 
 
 Processor& System::Cpu() 
-{ 
-        
-    
+{     
     return cpu_; 
 }
 
 // TODO: Return a container composed of the system's processes
 vector<Process>& System::Processes() 
 { 
-    string userName;
-
+    string userName,command;
+    long uptime;
     vector<int> pids = LinuxParser::Pids();
-    
-    //std::cout <<"\n"<< "pid 0: "<< pids[0] << "\n";
-    userName = LinuxParser::User(pids[0]);
-    std::cout<< "userName: " << userName << "\n";
+
+    for(int pid: pids)
+    {
+        Process dummy;
+    	userName = LinuxParser::User(pid);
+        dummy.Pid(pid);
+        dummy.User(userName);
+
+        command  = LinuxParser::Command(pid);
+        dummy.Command(command);
+
+        uptime =  LinuxParser::UpTime(pid);  
+        dummy.UpTime(uptime);
+        
+        
+        processes_.push_back(dummy);
+    }
+
 
     return processes_; 
 }

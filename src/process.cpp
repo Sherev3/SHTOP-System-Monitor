@@ -22,7 +22,12 @@ void Process::Pid(int pid)
 } 
 
 // TODO: Return this process's CPU utilization
-float Process::CpuUtilization() { return 0; }
+float Process::CpuUtilization() { return processCpuUtl_; }
+
+void Process::CpuUtilization(float processCpuUtl)
+{
+    processCpuUtl_ = processCpuUtl;
+}
 
 // TODO: Return the command that generated this process
 string Process::Command() 

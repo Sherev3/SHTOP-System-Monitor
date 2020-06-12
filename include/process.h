@@ -15,6 +15,7 @@ class Process {
   std::string Command();                   // TODO: See src/process.cpp
   void Command(std::string command);
   float CpuUtilization();                  // TODO: See src/process.cpp
+  void CpuUtilization(float processCpuUtl);
   std::string Ram();                       // TODO: See src/process.cpp
   long int UpTime();                       // TODO: See src/process.cpp
   void UpTime(long uptime);
@@ -26,6 +27,7 @@ class Process {
     int pid_;
     std::string command_;
     long uptime_{0};
+    float processCpuUtl_{0};
 };
 
 #endif

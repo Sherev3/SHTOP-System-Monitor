@@ -46,6 +46,7 @@ long Jiffies();
 long ActiveJiffies();
 long ActiveJiffies(int pid);
 long IdleJiffies();
+float ProcessCpuUtil(int pid);
 
 // Processes
 std::string Command(int pid);

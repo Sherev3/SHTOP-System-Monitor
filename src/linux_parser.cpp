@@ -222,7 +222,7 @@ string LinuxParser::Command(int pid)
 string LinuxParser::Ram(int pid[[maybe_unused]]) { return string(); }
 
 // TODO: Read and return the user ID associated with a process
-// REMOVE: [[maybe_unused]] once you define the function
+
 string LinuxParser::Uid(int pid) 
 { 
   string pidString,line,pidDirectory,Uidlabel, UidValue;
@@ -284,8 +284,7 @@ string LinuxParser::User(int pid)
   return userName;
 }
 
-// TODO: Read and return the uptime of a process
-// REMOVE: [[maybe_unused]] once you define the function
+// Read and return the uptime of a process
 long LinuxParser::UpTime(int pid) 
 {
   string line,pidString,pidDirectory;
@@ -301,10 +300,10 @@ long LinuxParser::UpTime(int pid)
     std::istringstream linestream(line);
     std::istream_iterator<std::string> begin(linestream);
     std::istream_iterator<std::string> end;
-
     std::vector<std::string> elemVec(begin, end);
     
     uptime = std::stol(elemVec[21]);
+    uptime = uptime /sysconf(_SC_CLK_TCK);
   }
   else
   {
@@ -312,4 +311,43 @@ long LinuxParser::UpTime(int pid)
   }
   
   return uptime; 
+}
+//Get the Cpu Utilization for each process
+float LinuxParser::ProcessCpuUtil(int pid) 
+{ 
+  string line,pidString,pidDirectory;
+  long systemUptime = UpTime();
+  long uTime,sTime,cuTime, csTime,startTime, totalTime, seconds;
+  float cpuUsage;
+
+  pidString = to_string(pid);
+  pidDirectory = "/" + pidString;
+
+  std::ifstream filestream(kProcDirectory + pidDirectory + kStatFilename);
+  if (filestream.is_open()) 
+  {
+    std::getline(filestream, line);
+    std::istringstream linestream(line);
+    std::istream_iterator<std::string> begin(linestream);
+    std::istream_iterator<std::string> end;
+    std::vector<std::string> elemVec(begin, end);
+
+    uTime = std::stol(elemVec[13]);
+    sTime = std::stol(elemVec[14]);
+    cuTime = std::stol(elemVec[15]);
+    csTime = std::stol(elemVec[16]);
+    startTime = std::stol(elemVec[21]);
+
+    totalTime = uTime + sTime + cuTime + csTime;
+
+    seconds = systemUptime - (startTime / sysconf(_SC_CLK_TCK) );
+    cpuUsage = ((totalTime / sysconf(_SC_CLK_TCK)) / seconds);
+
+  }
+  else
+  {
+    return 0; 
+  }
+  
+  return cpuUsage; 
 }

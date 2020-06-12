@@ -28,6 +28,7 @@ vector<Process>& System::Processes()
     float processCpuUtl;
     vector<int> pids = LinuxParser::Pids();
     
+    std::vector<Process> process_vector = {};
 
     for(int pid: pids)
     {
@@ -49,9 +50,14 @@ vector<Process>& System::Processes()
         pidRamValue = LinuxParser::Ram(pid);
         dummy.Ram(pidRamValue);
 
-        processes_.push_back(dummy);
+        process_vector.push_back(dummy);
     }
-    
+
+    processes_  = process_vector;
+    std::sort(processes_.begin(), processes_.end());
+    std::reverse(processes_.begin(),processes_.end());
+
+
 
     return processes_; 
 }

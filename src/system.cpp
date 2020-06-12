@@ -25,9 +25,9 @@ vector<Process>& System::Processes()
 { 
     string userName,command;
     long uptime;
-    float processCpuUtl
-
+    float processCpuUtl;
     vector<int> pids = LinuxParser::Pids();
+    
 
     for(int pid: pids)
     {
@@ -41,11 +41,13 @@ vector<Process>& System::Processes()
 
         uptime =  LinuxParser::UpTime(pid);  
         dummy.UpTime(uptime);
-        processCpuUtl = LinuxParser::ProcessCpuUtil(pid);
         
+        processCpuUtl = LinuxParser::ProcessCpuUtil(pid);
+        dummy.CpuUtilization(processCpuUtl);
+
         processes_.push_back(dummy);
     }
-
+    
 
     return processes_; 
 }

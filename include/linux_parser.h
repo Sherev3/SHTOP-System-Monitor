@@ -5,6 +5,9 @@
 #include <regex>
 #include <string>
 #include <iostream>
+#include <cmath> 
+
+#define KBTOMEG 0.001
 
 namespace LinuxParser {
 // Paths

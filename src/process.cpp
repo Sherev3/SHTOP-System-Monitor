@@ -44,7 +44,14 @@ void Process::Command(std::string command)
 }
 
 // TODO: Return this process's memory utilization
-string Process::Ram() { return string(); }
+string Process::Ram() 
+{ 
+    return pidRamValue_; 
+}
+void Process::Ram(string pidRamValue)
+{
+    pidRamValue_ = pidRamValue;
+}
 
 // TODO: Return the user (name) that generated this process
 string Process::User() 

@@ -23,7 +23,7 @@ Processor& System::Cpu()
 // TODO: Return a container composed of the system's processes
 vector<Process>& System::Processes() 
 { 
-    string userName,command;
+    string userName,command,pidRamValue;
     long uptime;
     float processCpuUtl;
     vector<int> pids = LinuxParser::Pids();
@@ -44,6 +44,10 @@ vector<Process>& System::Processes()
         
         processCpuUtl = LinuxParser::ProcessCpuUtil(pid);
         dummy.CpuUtilization(processCpuUtl);
+
+
+        pidRamValue = LinuxParser::Ram(pid);
+        dummy.Ram(pidRamValue);
 
         processes_.push_back(dummy);
     }

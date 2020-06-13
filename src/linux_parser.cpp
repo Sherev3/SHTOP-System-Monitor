@@ -11,7 +11,7 @@ using std::string;
 using std::to_string;
 using std::vector;
 
-// DONE: An example of how to read data from the filesystem
+//  read data from the filesystem
 string LinuxParser::OperatingSystem() {
   string line;
   string key;
@@ -34,7 +34,7 @@ string LinuxParser::OperatingSystem() {
   return value;
 }
 
-// DONE: An example of how to read data from the filesystem
+// read data from the filesystem
 string LinuxParser::Kernel() {
   string os, version,kernel;
   string line;
@@ -52,7 +52,7 @@ string LinuxParser::Kernel() {
   return kernel;
 }
 
-// BONUS: Update this to use std::filesystem
+// TODO: Update this to use std::filesystem
 vector<int> LinuxParser::Pids() {
   vector<int> pids;
   DIR* directory = opendir(kProcDirectory.c_str());
@@ -72,7 +72,7 @@ vector<int> LinuxParser::Pids() {
   return pids;
 }
 
-// TODO: Read and return the system memory utilization
+// Read and return the system memory utilization
 float LinuxParser::MemoryUtilization() 
 { 
   std::ifstream filestream(kProcDirectory + kMeminfoFilename);
@@ -133,21 +133,6 @@ long LinuxParser::UpTime()
   return upTimelong; 
 } 
 
-// TODO: Read and return the number of jiffies for the system
-long LinuxParser::Jiffies() { return 0; }
-
-// TODO: Read and return the number of active jiffies for a PID
-// REMOVE: [[maybe_unused]] once you define the function
-long LinuxParser::ActiveJiffies(int pid[[maybe_unused]]) { return 0; }
-
-//  Read and return the number of active jiffies for the system
-long LinuxParser::ActiveJiffies() { return 0; }
-
-//  Read and return the number of idle jiffies for the system
-long LinuxParser::IdleJiffies() { return 0; }
-
-//  Read and return CPU utilization
-vector<string> LinuxParser::CpuUtilization() { return {}; }
 
 //  Read and return the total number of processes
 int LinuxParser::TotalProcesses() 
@@ -196,7 +181,7 @@ int LinuxParser::RunningProcesses()
   return procsRunningNumberInt; 
 }
 
-// TODO: Read and return the command associated with a process
+//  Read and return the command associated with a process
 string LinuxParser::Command(int pid) 
 { 
   string line,pidString,pidDirectory;
@@ -289,7 +274,6 @@ string LinuxParser::Uid(int pid)
 string LinuxParser::User(int pid) 
 { 
   string userID = Uid(pid);
-  //std::cout << "\n" << "userID: "<<userID << "\n";
   string line, userName, x, userIDstring,token;
 
   std::ifstream filestream(kPasswordPath);

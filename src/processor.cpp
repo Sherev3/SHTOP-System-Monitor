@@ -3,7 +3,7 @@
 #include <iostream>
 #include <string>
 
-// TODO: Return the aggregate CPU utilization
+// Return the aggregate CPU utilization
 float Processor::Utilization() 
 { 
     std::string line,cpu;

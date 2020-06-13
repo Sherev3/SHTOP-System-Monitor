@@ -8,6 +8,13 @@
 #include <cmath> 
 
 #define KBTOMEG 0.001
+#define UTIME_INDEX 13
+#define STIME_INDEX 14
+#define CUTIME_INDEX 15
+#define CSTIME_INDEX 16
+#define START_INDEX 21
+
+
 
 namespace LinuxParser {
 // Paths

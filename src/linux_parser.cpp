@@ -306,7 +306,7 @@ long LinuxParser::UpTime(int pid)
 {
   string line,pidString,pidDirectory;
  
-  long uptime;
+  long uptime,systemUptime;
   pidString = to_string(pid);
   pidDirectory = "/" + pidString;
 
@@ -319,8 +319,10 @@ long LinuxParser::UpTime(int pid)
     std::istream_iterator<std::string> end;
     std::vector<std::string> elemVec(begin, end);
     
-    uptime = std::stol(elemVec[21]);
+    uptime = std::stol(elemVec[START_INDEX]);
     uptime = uptime /sysconf(_SC_CLK_TCK);
+    systemUptime = UpTime();
+    uptime = systemUptime - uptime;
   }
   else
   {
@@ -349,11 +351,11 @@ float LinuxParser::ProcessCpuUtil(int pid)
     std::istream_iterator<std::string> end;
     std::vector<std::string> elemVec(begin, end);
 
-    uTime = std::stol(elemVec[13]);
-    sTime = std::stol(elemVec[14]);
-    cuTime = std::stol(elemVec[15]);
-    csTime = std::stol(elemVec[16]);
-    startTime = std::stol(elemVec[21]);
+    uTime = std::stol(elemVec[UTIME_INDEX]);
+    sTime = std::stol(elemVec[STIME_INDEX]);
+    cuTime = std::stol(elemVec[CUTIME_INDEX]);
+    csTime = std::stol(elemVec[CSTIME_INDEX]);
+    startTime = std::stol(elemVec[START_INDEX]);
 
     totalTime = uTime + sTime + cuTime + csTime;
 

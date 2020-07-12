@@ -1,4 +1,5 @@
 # System-Monitor
+![System Monitor](images/Screenshot from 2020-07-12 10-11-58.png)
 
 ## ncurses
 [ncurses](https://www.gnu.org/software/ncurses/) is a library that facilitates text-based graphical output in the terminal. This project relies on ncurses for display output.
